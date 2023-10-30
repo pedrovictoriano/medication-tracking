@@ -61,18 +61,18 @@
                             <th>ID</th>
                             <th>Fabricante</th>
                             <th>Nome Comercial</th>
+                            <th>Nome Generico</th>
                             <th>Forma Farmaceutica</th>
-                            <th>Dosagem</th>
                           </tr>
                         </thead>
                         <tbody>
                           <% dados.forEach(function(dado) { %>
                             <tr>
-                              <td><%= dado.id %></td>
-                              <td><%= dado.fabricante %></td>
-                              <td><%= dado.nome_comercial %></td>
-                              <td><%= dado.forma_farmaceutica %></td>
-                              <td><%= dado.dosagem %></td>
+                              <td><%= dado.medicamento_id %></td>
+                              <td><%= dado.fabricante_nome %></td>
+                              <td><%= dado.medicamento_nome_comercial %></td>
+                              <td><%= dado.medicamento_nome_generico %></td>
+                              <td><%= dado.forma_farmaceutica_descricao %></td>
                             </tr>
                           <% }); %>
                         </tbody>
