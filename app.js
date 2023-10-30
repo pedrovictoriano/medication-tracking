@@ -10,18 +10,20 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Conexão com o banco de dados
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'seu_usuario',
-  password: 'sua_senha',
-  database: 'seu_banco_de_dados'
-});
-
 // Middleware para analisar corpos de requisições em formato URL-encoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middleware para criar breadcrumbs
+// Servir arquivos estáticos do frontend
+app.use(express.static('public'));
+
+// Conexão com o banco de dados
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'medication_tracking'
+});
+
 // Middleware para criar breadcrumbs
 app.use((req, res, next) => {
   const pathParts = req.path.split('/').filter(Boolean);
@@ -47,9 +49,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Servir arquivos estáticos do frontend
-app.use(express.static('public'));
-
+// Rotas
+// Dashboard
 app.get('/', (req, res) => {
   const page = [
     {
@@ -58,16 +59,23 @@ app.get('/', (req, res) => {
     }
   ];
 
-  // Renderiza a página 'index' e passa os dados do breadcrumb
   res.render('index', { page });
 });
 
+// Medicamentos
 app.get('/medicamentos', (req, res) => {
   const page = [
     { name: 'Medicamentos', url: '/medicamentos' }
   ];
 
-  res.render('medicamentos', { page });
+  const query = 'SELECT * FROM medicamentos';
+
+  connection.query(query, (err, results) => {
+    if (err) throw err;
+
+    // 'results' contém os dados da tabela
+    res.render('medicamentos', { page, dados: results });
+  });
 });
 
 app.listen(port, () => {
