@@ -1,0 +1,9 @@
+<div class="col-sm-6">
+  <ol class="breadcrumb float-sm-right">
+    <% breadcrumb.forEach(item => { %>
+      <li class="breadcrumb-item">
+        <a href="<%= item.url %>"><%= item.name %></a>
+      </li>
+    <% }); %>
+  </ol>
+</div><!-- /.col -->
