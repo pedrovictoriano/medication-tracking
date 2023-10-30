@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const path = require('path');
+
+const db = require('./database'); // Importa o módulo do banco de dados
 
 const app = express();
 const port = 3000;
@@ -16,13 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Servir arquivos estáticos do frontend
 app.use(express.static('public'));
 
-// Conexão com o banco de dados
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'medication_tracking'
-});
+
 
 // Middleware para criar breadcrumbs
 app.use((req, res, next) => {
@@ -68,13 +63,15 @@ app.get('/medicamentos', (req, res) => {
     { name: 'Medicamentos', url: '/medicamentos' }
   ];
 
-  const query = 'SELECT * FROM medicamentos';
-
-  connection.query(query, (err, results) => {
-    if (err) throw err;
+  db.getMedicamentos((err, data) => {
+    if (err) {
+      // Trate o erro como achar melhor
+      res.status(500).send("Erro ao acessar o banco de dados");
+      return;
+    }
 
     // 'results' contém os dados da tabela
-    res.render('medicamentos', { page, dados: results });
+    res.render('medicamentos', { page, dados: data });
   });
 });
 
