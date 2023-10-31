@@ -117,6 +117,26 @@ app.get('/fabricantes', (req, res) => {
   });
 });
 
+app.get('/formas-farmaceuticas', (req, res) => {
+  db.getFormasFarmaceuticas((err, results) => {
+      if (err) {
+          res.status(500).send('Erro ao obter Formas Farmacêuticas');
+          return;
+      }
+      res.json(results);
+  });
+});
+
+app.get('/unidades', (req, res) => {
+  db.getUnidades((err, results) => {
+      if (err) {
+          res.status(500).send('Erro ao obter Unidades');
+          return;
+      }
+      res.json(results);
+  });
+});
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });

@@ -87,10 +87,32 @@ const getFabricantes = (callback) => {
     });
 };
 
+const getFormasFarmaceuticas = (callback) => {
+    const query = 'SELECT id, descricao FROM formas_farmaceuticas';
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const getUnidades = (callback) => {
+    const query = 'SELECT id, descricao, abreviatura FROM unidades';
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
 
 module.exports = {
     getMedicamentos,
     getCountMedicamentos,
     insertMedicamentos,
     getFabricantes,
+    getFormasFarmaceuticas,
+    getUnidades,
 };

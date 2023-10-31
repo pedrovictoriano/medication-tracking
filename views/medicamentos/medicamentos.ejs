@@ -123,12 +123,41 @@
                               <option selected="selected"></option>
                             </select>
                           </div>
-                          <!-- /.form-group -->
                         </div>
-                        <!-- /.col -->
                         <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nome comercial</label>
+                            <input class="form-control" type="text" placeholder="Default input">
+                          </div>
                         </div>
-                        <!-- /.col -->
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nome Genérico</label>
+                            <input class="form-control" type="text" placeholder="Default input">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Forma Farmacêutica</label>
+                            <select class="form-control select2bs4" id="forma-farmaceutica-select" style="width: 100%;">
+                              <option selected="selected"></option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Unidade</label>
+                            <select class="form-control select2bs4" id="unidade-select" style="width: 100%;">
+                              <option selected="selected"></option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Apresentação</label>
+                            <input class="form-control" type="text" id="apresetacao-input" placeholder="Apresentação">
+                          </div>
+                        </div>
                       </div>
                     </form>
                   </div>
@@ -149,9 +178,10 @@
   </div>
   <!-- ./wrapper -->
   <%- include('../partials/scripts') %>
-  <script src="js/medicamentos/medicamentos.js"></script>
+    <script src="js/medicamentos/medicamentos.js"></script>
     <script src="js/medicamentos/cadastroMedicamento.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
+    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
 
 </body>
 
