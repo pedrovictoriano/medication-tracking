@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <%- include('../partials/head', { title: page[0].name }) %>
+    <!-- Select2 -->
+    <link rel="stylesheet" href="../../plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="../../plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+</head>
+
+
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__shake" src="img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
+
+    <!-- Navbar -->
+    <%- include('../partials/navbar') %>
+
+      <!-- Main Sidebar Container -->
+      <%- include('../partials/sidebar') %>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0">
+                    <%= page[0].name %>
+                  </h1>
+                </div><!-- /.col -->
+                <%- include('../partials/breadcrumb') %>
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+          </div>
+          <!-- /.content-header -->
+
+          <!-- Main content -->
+          <section class="content">
+            <div class="container-fluid">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Lista de Medicamentos</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-block btn-success btn-sm" data-toggle="modal"
+                        data-target="#modalCadastroMedicamento">Novo</button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Fabricante</th>
+                          <th>Nome Comercial</th>
+                          <th>Nome Generico</th>
+                          <th>Forma Farmaceutica</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% dados.forEach(function(dado) { %>
+                          <tr>
+                            <td>
+                              <%= dado.medicamento_id %>
+                            </td>
+                            <td>
+                              <%= dado.fabricante_nome %>
+                            </td>
+                            <td>
+                              <%= dado.medicamento_nome_comercial %>
+                            </td>
+                            <td>
+                              <%= dado.medicamento_nome_generico %>
+                            </td>
+                            <td>
+                              <%= dado.forma_farmaceutica_descricao %>
+                            </td>
+                          </tr>
+                          <% }); %>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer clearfix">
+                    <ul class="pagination pagination-sm m-0 float-right">
+                      <% for(let i=1; i <=totalPages; i++) { %>
+                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                          <a class="page-link" href="/medicamentos?currentPage=<%= i %>">
+                            <%= i %>
+                          </a>
+                        </li>
+                        <% } %>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /.card -->
+              </div>
+            </div><!-- /.container-fluid -->
+
+            <div class="modal fade" id="modalCadastroMedicamento">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Cadastro de Medicamento</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="formCadastroMedicamento">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Fabricante</label>
+                            <select class="form-control select2bs4" id="fabricante-select" style="width: 100%;">
+                              <option selected="selected"></option>
+                            </select>
+                          </div>
+                          <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary" form="formCadastroMedicamento">Salvar
+                      Alterações</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+        <%- include('../partials/footer') %>
+  </div>
+  <!-- ./wrapper -->
+  <%- include('../partials/scripts') %>
+  <script src="js/medicamentos/medicamentos.js"></script>
+    <script src="js/medicamentos/cadastroMedicamento.js"></script>
+    <script src="plugins/select2/js/select2.full.min.js"></script>
+
+</body>
+
+</html>

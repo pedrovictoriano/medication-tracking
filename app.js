@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Servir arquivos estáticos do frontend
 app.use(express.static('public'));
 
-
-
 // Middleware para criar breadcrumbs
 app.use((req, res, next) => {
   const pathParts = req.path.split('/').filter(Boolean);
@@ -59,19 +57,63 @@ app.get('/', (req, res) => {
 
 // Medicamentos
 app.get('/medicamentos', (req, res) => {
-  const page = [
-    { name: 'Medicamentos', url: '/medicamentos' }
-  ];
+  let currentPage = parseInt(req.query.currentPage) || 1; // Página atual
+  let limit = parseInt(req.query.limit) || 10; // Registros por página
+  let offset = (currentPage - 1) * limit;
 
-  db.getMedicamentos((err, data) => {
+  db.getCountMedicamentos((err, total) => {
     if (err) {
-      // Trate o erro como achar melhor
       res.status(500).send("Erro ao acessar o banco de dados");
       return;
     }
 
-    // 'results' contém os dados da tabela
-    res.render('medicamentos', { page, dados: data });
+    let totalPages = Math.ceil(total / limit);
+
+    db.getMedicamentos(limit, offset, (err, data) => {
+      if (err) {
+        res.status(500).send("Erro ao acessar o banco de dados");
+        return;
+      }
+
+      res.render('medicamentos/medicamentos', {
+        page: [{ name: 'Medicamentos', url: '/medicamentos' }], 
+        currentPage,
+        totalPages,
+        dados: data
+      });
+    });
+  });
+});
+
+app.post('/medicamentos', (req, res) => {
+  const medicamento = {
+      fabricanteId: req.body.fabricanteId,
+      nomeComercial: req.body.nomeComercial,
+      nomeGenerico: req.body.nomeGenerico,
+      formaFarmaceuticaId: req.body.formaFarmaceuticaId,
+      unidadeId: req.body.unidadeId,
+      apresentacao: req.body.apresentacao,
+      instrucoes: req.body.instrucoes,
+      observacoes: req.body.observacoes,
+      status: req.body.status
+  };
+
+  db.insertMedicamentos(medicamento, (err) => {
+      if (err) {
+          res.status(500).send('Erro ao cadastrar medicamento');
+          return;
+      }
+      res.send('Medicamento cadastrado com sucesso');
+  });
+});
+
+app.get('/fabricantes', (req, res) => {
+  db.getFabricantes((err, results) => {
+      if (err) {
+          res.status(500).send('Erro ao obter fabricantes');
+          return;
+      }
+      res.json(results);
   });
 });
 
