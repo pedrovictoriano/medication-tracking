@@ -95,7 +95,7 @@ app.post('/medicamentos', (req, res) => {
       apresentacao: req.body.apresentacao,
       instrucoes: req.body.instrucoes,
       observacoes: req.body.observacoes,
-      status: req.body.status
+      status: true
   };
 
   db.insertMedicamentos(medicamento, (err) => {

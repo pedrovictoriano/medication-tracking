@@ -6,19 +6,19 @@ $(document).ready(function () {
 
     $.get('/fabricantes', function (fabricantes) {
         fabricantes.forEach(function (fabricante) {
-            $('#fabricante-select').append(new Option(fabricante.id + " - " + fabricante.nome, fabricante.id));
+            $('#cadastro-fabricante').append(new Option(fabricante.id + " - " + fabricante.nome, fabricante.id));
         });
     });
 
     $.get('/formas-farmaceuticas', function (formas_farmaceuticas) {
         formas_farmaceuticas.forEach(function (forma_farmaceutica) {
-            $('#forma-farmaceutica-select').append(new Option(forma_farmaceutica.id + " - " + forma_farmaceutica.descricao, forma_farmaceutica.id));
+            $('#cadastro-forma-farmaceutica').append(new Option(forma_farmaceutica.id + " - " + forma_farmaceutica.descricao, forma_farmaceutica.id));
         });
     });
 
     $.get('/unidades', function (unidades) {
         unidades.forEach(unidade => {
-            $('#unidade-select').append(
+            $('#cadastro-unidade').append(
                 $('<option>', {
                     value: unidade.id,
                     text: unidade.id + " - " + unidade.descricao,
@@ -28,14 +28,12 @@ $(document).ready(function () {
         });
     });
 
-
-    $('#unidade-select').on('change', function () {
+    $('#cadastro-unidade').on('change', function () {
         var abreviatura = $(this).find('option:selected').data('abreviatura');
-        $('#apresetacao-input').inputmask({
+        $('#cadastro-apresetacao').inputmask({
             alias: 'numeric',
             rightAlign: false,
             suffix: ' ' + abreviatura
         });
     });
-
 });
