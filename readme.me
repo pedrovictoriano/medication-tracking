@@ -2,3 +2,7 @@ Rodando aplicação
 npm install
 
 Este comando irá ler o arquivo package.json, baixar e instalar todas as dependências listadas nele. Isso inclui todas as bibliotecas e ferramentas que seu projeto precisa para rodar corretamente.
+
+Fazer dump da base
+cd 'C:\Program Files\MySQL\MySQL Workbench 8.0 CE'
+./mysqldump.exe --host=127.0.0.1 --port=3306 --default-character-set=utf8 --user=root --protocol=tcp --skip-triggers "medication_tracking" --column-statistics=0 > 'C:\Users\vitorlulio\Desktop\dump.sql'
