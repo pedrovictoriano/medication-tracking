@@ -52,9 +52,9 @@ const getMedicamentos = (limit, offset, callback) => {
 const insertMedicamentos = (medicamento, callback) => {
     const query = `
         INSERT INTO medicamentos 
-            (fabricante_id, nome_comercial, nome_generico, forma_farmaceutica_id, unidade_id, apresentacao, instrucoes, observacoes, status)
+            (fabricante_id, nome_comercial, nome_generico, forma_farmaceutica_id, unidade_id, apresentacao, instrucoes, observacoes)
         VALUES 
-            (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
     const params = [
@@ -66,7 +66,6 @@ const insertMedicamentos = (medicamento, callback) => {
         medicamento.apresentacao,
         medicamento.instrucoes,
         medicamento.observacoes,
-        medicamento.status
     ];
 
     connection.query(query, params, (err, results) => {
