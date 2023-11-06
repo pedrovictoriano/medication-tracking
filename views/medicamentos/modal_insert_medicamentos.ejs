@@ -1,0 +1,85 @@
+<div class="modal fade" id="modalCadastroMedicamento">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cadastro de Medicamento</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formCadastroMedicamento">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome comercial</label>
+                                <input class="form-control" type="text" name="nomeComercial"
+                                    id="cadastro-nome-comercial" placeholder="Informe um Nome Comercial" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nome Genérico</label>
+                                <input class="form-control" type="text" name="nomeGenerico" id="cadastro-nome-generico"
+                                    placeholder="Informe um Nome Genérico" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Fabricante</label>
+                                <select class="form-control select2bs4" name="fabricanteId" id="cadastro-fabricante"
+                                    style="width: 100%;" data-placeholder="Selecione um fabricante" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Forma Farmacêutica</label>
+                                <select class="form-control select2bs4" name="formaFarmaceuticaId"
+                                    id="cadastro-forma-farmaceutica" style="width: 100%;"
+                                    data-placeholder="Selecione uma Forma Farmacêutica" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Unidade</label>
+                                <select class="form-control select2bs4" name="unidadeId" id="cadastro-unidade"
+                                    style="width: 100%;" data-placeholder="Selecione uma Unidade" required>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Apresentação</label>
+                                <input class="form-control" type="text" name="apresentacao" id="cadastro-apresetacao"
+                                    placeholder="Informe uma Apresentação" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Instruções</label>
+                                <textarea class="form-control" rows="2" name="instrucoes" id="cadastro-instrucoes"
+                                    placeholder="Informe uma Instrução"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Observações</label>
+                                <textarea class="form-control" rows="2" name="observacoes" id="cadastro-observacoes"
+                                    placeholder="Informe uma Observação"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="submit" class="btn btn-primary" form="formCadastroMedicamento">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+</div>
