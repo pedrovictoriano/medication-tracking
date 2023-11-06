@@ -77,6 +77,58 @@ const insertMedicamentos = (medicamento, callback) => {
     });
 };
 
+const getMedicamentoById = (medicamentoId, callback) => {
+    const query = `
+        SELECT * FROM medicamentos
+        WHERE id = ?
+    `;
+
+    connection.query(query, [medicamentoId], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+
+const updateMedicamento = (medicamentoId, medicamento, callback) => {
+    const query = `
+        UPDATE medicamentos
+        SET
+            fabricante_id = ?,
+            nome_comercial = ?,
+            nome_generico = ?,
+            forma_farmaceutica_id = ?,
+            unidade_id = ?,
+            apresentacao = ?,
+            instrucoes = ?,
+            observacoes = ?
+        WHERE
+            medicamento_id = ?
+    `;
+
+    const params = [
+        medicamento.fabricanteId,
+        medicamento.nomeComercial,
+        medicamento.nomeGenerico,
+        medicamento.formaFarmaceuticaId,
+        medicamento.unidadeId,
+        medicamento.apresentacao,
+        medicamento.instrucoes,
+        medicamento.observacoes,
+        medicamentoId
+    ];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
+
 const getFabricantes = (callback) => {
     const query = 'SELECT id, nome FROM fabricantes';
     connection.query(query, (err, results) => {
@@ -115,4 +167,6 @@ module.exports = {
     getFabricantes,
     getFormasFarmaceuticas,
     getUnidades,
+    getMedicamentoById,
+    updateMedicamento
 };

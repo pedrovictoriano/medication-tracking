@@ -106,6 +106,22 @@ app.post('/medicamentos', (req, res) => {
   });
 });
 
+app.get('/medicamentos/:medicamentoId', (req, res) => {
+  const medicamentoId = req.params.medicamentoId;
+
+  db.getMedicamentoById(medicamentoId, (err, data) => {
+    if (err) {
+      res.status(500).send("Erro ao acessar o banco de dados");
+      return;
+    }
+    if(data) {
+      res.json(data);
+    } else {
+      res.status(404).send("Medicamento não encontrado");
+    }
+  });
+});
+
 app.get('/fabricantes', (req, res) => {
   db.getFabricantes((err, results) => {
       if (err) {
