@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  $('[data-widget="pushmenu"]').PushMenu('collapse');
+});
+
 // Configurações padrão para Toastr (opcional)
 toastr.options = {
   "closeButton": true,
