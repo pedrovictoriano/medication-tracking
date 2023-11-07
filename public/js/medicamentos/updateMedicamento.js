@@ -112,13 +112,13 @@ $(document).ready(function () {
 
   $('#formUpdateMedicamento').on('submit', function (e) {
     e.preventDefault();
+    var medicamentoId = $('#updateMedicamentoId').val(); // Certifique-se de ter um input com o ID do medicamento
     $.ajax({
-      url: '/medicamentos',
+      url: '/medicamentos/' + medicamentoId,
       type: 'PUT',
       data: $(this).serialize(),
       success: function (response) {
         $('#modalUpdateMedicamento').modal('hide');
-
         toastr.success('Medicamento atualizado com sucesso!');
       },
       error: function (error) {
@@ -126,4 +126,5 @@ $(document).ready(function () {
       }
     });
   });
+
 });

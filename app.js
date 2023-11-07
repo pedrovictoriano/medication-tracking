@@ -106,6 +106,29 @@ app.post('/medicamentos', (req, res) => {
   });
 });
 
+app.put('/medicamentos/:id', (req, res) => {
+  const id = req.params.id;
+  const medicamentoAtualizado = {
+      fabricanteId: req.body.fabricanteId,
+      nomeComercial: req.body.nomeComercial,
+      nomeGenerico: req.body.nomeGenerico,
+      formaFarmaceuticaId: req.body.formaFarmaceuticaId,
+      unidadeId: req.body.unidadeId,
+      apresentacao: req.body.apresentacao,
+      instrucoes: req.body.instrucoes,
+      observacoes: req.body.observacoes
+  };
+
+  db.updateMedicamento(id, medicamentoAtualizado, (err) => {
+      if (err) {
+          res.status(500).send('Erro ao atualizar medicamento');
+          return;
+      }
+      res.send('Medicamento atualizado com sucesso');
+  });
+});
+
+
 app.get('/medicamentos/:medicamentoId', (req, res) => {
   const medicamentoId = req.params.medicamentoId;
 

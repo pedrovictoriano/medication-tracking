@@ -3,10 +3,10 @@ require('dotenv').config();
 
 // Conexão com o banco de dados
 const connection = mysql.createConnection({
-    host     : process.env.DB_HOST,
-    user     : process.env.DB_USER,
-    password : process.env.DB_PASS,
-    database : process.env.DB_NAME
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
 });
 
 const getCountMedicamentos = (callback) => {
@@ -47,8 +47,6 @@ const getMedicamentos = (limit, offset, callback) => {
         callback(null, results);
     });
 };
-
-// database.js
 
 const insertMedicamentos = (medicamento, callback) => {
     const query = `
@@ -91,7 +89,6 @@ const getMedicamentoById = (medicamentoId, callback) => {
     });
 };
 
-
 const updateMedicamento = (medicamentoId, medicamento, callback) => {
     const query = `
         UPDATE medicamentos
@@ -105,7 +102,7 @@ const updateMedicamento = (medicamentoId, medicamento, callback) => {
             instrucoes = ?,
             observacoes = ?
         WHERE
-            medicamento_id = ?
+            id = ?
     `;
 
     const params = [
@@ -127,7 +124,6 @@ const updateMedicamento = (medicamentoId, medicamento, callback) => {
         callback(null, results);
     });
 };
-
 
 const getFabricantes = (callback) => {
     const query = 'SELECT id, nome FROM fabricantes';
@@ -158,7 +154,6 @@ const getUnidades = (callback) => {
         callback(null, results);
     });
 };
-
 
 module.exports = {
     getMedicamentos,
