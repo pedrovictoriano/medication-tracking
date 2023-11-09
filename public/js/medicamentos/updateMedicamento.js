@@ -98,7 +98,7 @@ $(document).ready(function () {
           suffix: ' ' + abreviaturaSelecionada
         });
         $('#modalUpdateMedicamento #updateApresentacao').val(medicamento.apresentacao);
-        $('#modalUpdateMedicamento #updateInstrucoes').val(medicamento.medicamento_nome_comercial);
+        $('#modalUpdateMedicamento #updateInstrucoes').val(medicamento.instrucoes);
         $('#modalUpdateMedicamento #updateObservacoes').val(medicamento.observacoes);
 
         // Abre o modal de edição
