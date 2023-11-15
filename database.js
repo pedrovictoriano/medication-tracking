@@ -163,7 +163,8 @@ const getLotes = (callback) => {
             data_fabricacao,
             data_validade,
             data_criacao,
-            data_atualizacao
+            data_atualizacao,
+            DATEDIFF(data_validade, CURDATE()) AS dias_para_vencer
         FROM
             lotes
     `;

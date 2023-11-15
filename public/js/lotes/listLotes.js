@@ -17,6 +17,21 @@ $(document).ready(function () {
                 }
             },
             {
+                "data": "dias_para_vencer",
+                "render": function(data, type, row) {
+                    if (data > 90) {
+                        return `<span class="badge bg-primary">${data}</span>`;
+                    } else if (data <= 90 && data > 60) {
+                        return `<span class="badge bg-warning">${data}</span>`;
+                    } else if (data <= 60 && data > 30) {
+                        return `<span class="badge bg-orange" style="color: white !important">${data}</span>`;
+                    } else {
+                        return `<span class="badge bg-danger">${data}</span>`;
+                    }
+                }
+            },    
+            { "data": "id" },
+            {
                 "data": "id",
                 "render": function (data, type, row) {
                     return `
@@ -42,6 +57,12 @@ $(document).ready(function () {
                 "className": "dt-center",
                 "width": "100px", // Defina a largura que deseja
                 "orderable": false, // Se você não quer que a coluna seja ordenável
+                "searchable": false // Se você não quer que a coluna seja pesquisável
+            },
+            {
+                "targets": 4, // Indica a última coluna
+                "className": "dt-center",
+                "width": "120px", // Defina a largura que deseja
                 "searchable": false // Se você não quer que a coluna seja pesquisável
             }
         ]
