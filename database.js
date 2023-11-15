@@ -155,6 +155,29 @@ const getUnidades = (callback) => {
     });
 };
 
+const getLotes = (callback) => {
+    const query = `
+        SELECT 
+            id,
+            numero_lote,
+            data_fabricacao,
+            data_validade,
+            data_criacao,
+            data_atualizacao
+        FROM
+            lotes
+    `;
+    // Tem que ajustar esse select para trazer apenas lotes há vencer e que tem quantidade no estoque
+    // Seria uma melhoria trazer lotes vencidos, filtros
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
 module.exports = {
     getMedicamentos,
     getCountMedicamentos,
@@ -163,5 +186,6 @@ module.exports = {
     getFormasFarmaceuticas,
     getUnidades,
     getMedicamentoById,
-    updateMedicamento
+    updateMedicamento,
+    getLotes
 };

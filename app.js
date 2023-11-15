@@ -175,6 +175,23 @@ app.get('/unidades', (req, res) => {
   });
 });
 
+app.get('/lotes', (req, res) => {
+  res.render('lotes/lotes', {
+    page: [{ name: 'Lotes', url: '/lotes' }]
+  });
+});
+
+app.get('/api/lotes', (req, res) => {
+  db.getLotes((err, results) => {
+      if (err) {
+          res.status(500).send('Erro ao obter os Lotes');
+          return;
+      }
+      res.json({ data: results });
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
