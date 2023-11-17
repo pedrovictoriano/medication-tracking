@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cron = require('node-cron');
 
 const db = require('./database'); // Importa o módulo do banco de dados
 
@@ -76,7 +77,7 @@ app.get('/medicamentos', (req, res) => {
       }
 
       res.render('medicamentos/medicamentos', {
-        page: [{ name: 'Medicamentos', url: '/medicamentos' }], 
+        page: [{ name: 'Medicamentos', url: '/medicamentos' }],
         currentPage,
         totalPages,
         dados: data
@@ -87,44 +88,44 @@ app.get('/medicamentos', (req, res) => {
 
 app.post('/medicamentos', (req, res) => {
   const medicamento = {
-      fabricanteId: req.body.fabricanteId,
-      nomeComercial: req.body.nomeComercial,
-      nomeGenerico: req.body.nomeGenerico,
-      formaFarmaceuticaId: req.body.formaFarmaceuticaId,
-      unidadeId: req.body.unidadeId,
-      apresentacao: req.body.apresentacao,
-      instrucoes: req.body.instrucoes,
-      observacoes: req.body.observacoes
+    fabricanteId: req.body.fabricanteId,
+    nomeComercial: req.body.nomeComercial,
+    nomeGenerico: req.body.nomeGenerico,
+    formaFarmaceuticaId: req.body.formaFarmaceuticaId,
+    unidadeId: req.body.unidadeId,
+    apresentacao: req.body.apresentacao,
+    instrucoes: req.body.instrucoes,
+    observacoes: req.body.observacoes
   };
 
   db.insertMedicamentos(medicamento, (err) => {
-      if (err) {
-          res.status(500).send('Erro ao cadastrar medicamento');
-          return;
-      }
-      res.send('Medicamento cadastrado com sucesso');
+    if (err) {
+      res.status(500).send('Erro ao cadastrar medicamento');
+      return;
+    }
+    res.send('Medicamento cadastrado com sucesso');
   });
 });
 
 app.put('/medicamentos/:id', (req, res) => {
   const id = req.params.id;
   const medicamentoAtualizado = {
-      fabricanteId: req.body.fabricanteId,
-      nomeComercial: req.body.nomeComercial,
-      nomeGenerico: req.body.nomeGenerico,
-      formaFarmaceuticaId: req.body.formaFarmaceuticaId,
-      unidadeId: req.body.unidadeId,
-      apresentacao: req.body.apresentacao,
-      instrucoes: req.body.instrucoes,
-      observacoes: req.body.observacoes
+    fabricanteId: req.body.fabricanteId,
+    nomeComercial: req.body.nomeComercial,
+    nomeGenerico: req.body.nomeGenerico,
+    formaFarmaceuticaId: req.body.formaFarmaceuticaId,
+    unidadeId: req.body.unidadeId,
+    apresentacao: req.body.apresentacao,
+    instrucoes: req.body.instrucoes,
+    observacoes: req.body.observacoes
   };
 
   db.updateMedicamento(id, medicamentoAtualizado, (err) => {
-      if (err) {
-          res.status(500).send('Erro ao atualizar medicamento');
-          return;
-      }
-      res.send('Medicamento atualizado com sucesso');
+    if (err) {
+      res.status(500).send('Erro ao atualizar medicamento');
+      return;
+    }
+    res.send('Medicamento atualizado com sucesso');
   });
 });
 
@@ -137,7 +138,7 @@ app.get('/medicamentos/:medicamentoId', (req, res) => {
       res.status(500).send("Erro ao acessar o banco de dados");
       return;
     }
-    if(data) {
+    if (data) {
       res.json(data);
     } else {
       res.status(404).send("Medicamento não encontrado");
@@ -147,31 +148,31 @@ app.get('/medicamentos/:medicamentoId', (req, res) => {
 
 app.get('/fabricantes', (req, res) => {
   db.getFabricantes((err, results) => {
-      if (err) {
-          res.status(500).send('Erro ao obter fabricantes');
-          return;
-      }
-      res.json(results);
+    if (err) {
+      res.status(500).send('Erro ao obter fabricantes');
+      return;
+    }
+    res.json(results);
   });
 });
 
 app.get('/formas-farmaceuticas', (req, res) => {
   db.getFormasFarmaceuticas((err, results) => {
-      if (err) {
-          res.status(500).send('Erro ao obter Formas Farmacêuticas');
-          return;
-      }
-      res.json(results);
+    if (err) {
+      res.status(500).send('Erro ao obter Formas Farmacêuticas');
+      return;
+    }
+    res.json(results);
   });
 });
 
 app.get('/unidades', (req, res) => {
   db.getUnidades((err, results) => {
-      if (err) {
-          res.status(500).send('Erro ao obter Unidades');
-          return;
-      }
-      res.json(results);
+    if (err) {
+      res.status(500).send('Erro ao obter Unidades');
+      return;
+    }
+    res.json(results);
   });
 });
 
@@ -183,13 +184,57 @@ app.get('/lotes', (req, res) => {
 
 app.get('/api/lotes', (req, res) => {
   db.getLotes((err, results) => {
-      if (err) {
-          res.status(500).send('Erro ao obter os Lotes');
-          return;
-      }
-      res.json({ data: results });
+    if (err) {
+      res.status(500).send('Erro ao obter os Lotes');
+      return;
+    }
+    res.json({ data: results });
   });
 });
+
+const verificarLotes = () => {
+  console.log('Iniciando limpeza de Lotes');
+  db.limparNotificacoesAntigas((err, results) => {
+    if (err) {
+      console.error('Erro ao limpar notificações antigas', err);
+      return;
+    }
+    console.log('Notificações antigas limpas com sucesso.');
+    console.log("Verificando Lotes");
+    db.verificarLotesProximosDoVencimento((err, lotes) => {
+      if (err) {
+        console.error('Erro ao verificar lotes', err);
+        return;
+      }
+
+      lotes.forEach(lote => {
+        const mensagem = `Lote <strong>${lote.numero_lote}</strong> prestes a vencer em <strong>${lote.data_validade_formatada}</strong>`;
+        db.inserirNotificacao(lote.numero_lote, mensagem, (err, results) => {
+          if (err) {
+            console.error('Erro ao inserir notificação', err);
+          } else {
+            console.log('Notificação inserida com sucesso para o lote:', lote.numero_lote);
+          }
+        });
+      });
+    });
+  });
+};
+
+// Agendar a tarefa para ser executada todos os dias às 17h43
+cron.schedule('50 23 * * *', verificarLotes);
+
+app.get('/api/notificacoes', (req, res) => {
+  // Supondo que a função 'buscarNotificacoes' esteja definida em database.js
+  db.buscarNotificacoes((err, notificacoes) => {
+      if (err) {
+          res.status(500).send('Erro ao buscar notificações');
+          return;
+      }
+      res.json(notificacoes);
+  });
+});
+
 
 
 app.listen(port, () => {

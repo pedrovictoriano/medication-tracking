@@ -179,6 +179,72 @@ const getLotes = (callback) => {
     });
 };
 
+const verificarLotesProximosDoVencimento = (callback) => {
+    const query = `
+        SELECT 
+            numero_lote,
+            DATE_FORMAT(data_validade, '%d/%m/%Y') AS data_validade_formatada
+        FROM
+            lotes
+        WHERE
+            data_validade BETWEEN CURDATE()
+            AND DATE_ADD(CURDATE(), INTERVAL 90 DAY);
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const inserirNotificacao = (numeroLote, mensagem, callback) => {
+    const query = `
+        INSERT INTO notificacoes (numero_lote, mensagem)
+        VALUES (?, ?)
+    `;
+
+    connection.query(query, [numeroLote, mensagem], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
+const limparNotificacoesAntigas = (callback) => {
+    // Por exemplo, excluir notificações com mais de 90 dias
+    const query = `DELETE FROM notificacoes`;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
+const buscarNotificacoes = (callback) => {
+    const query = `
+        SELECT
+            *
+        FROM
+            notificacoes
+        WHERE
+            visualizada = FALSE
+        ORDER BY data_criacao DESC
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+
 module.exports = {
     getMedicamentos,
     getCountMedicamentos,
@@ -188,5 +254,9 @@ module.exports = {
     getUnidades,
     getMedicamentoById,
     updateMedicamento,
-    getLotes
+    getLotes,
+    verificarLotesProximosDoVencimento,
+    inserirNotificacao,
+    limparNotificacoesAntigas,
+    buscarNotificacoes
 };
