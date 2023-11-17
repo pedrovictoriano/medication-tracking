@@ -244,6 +244,20 @@ const buscarNotificacoes = (callback) => {
     });
 };
 
+const marcarComoVisualizada = (notificacaoId, callback) => {
+    const query = `
+        UPDATE notificacoes
+        SET visualizada = TRUE
+        WHERE id = ?
+    `;
+
+    connection.query(query, [notificacaoId], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
 
 module.exports = {
     getMedicamentos,
@@ -258,5 +272,6 @@ module.exports = {
     verificarLotesProximosDoVencimento,
     inserirNotificacao,
     limparNotificacoesAntigas,
-    buscarNotificacoes
+    buscarNotificacoes,
+    marcarComoVisualizada
 };

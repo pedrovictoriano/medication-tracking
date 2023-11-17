@@ -235,6 +235,17 @@ app.get('/api/notificacoes', (req, res) => {
   });
 });
 
+app.post('/api/notificacoes/visualizar/:id', (req, res) => {
+  const notificacaoId = req.params.id;
+
+  db.marcarComoVisualizada(notificacaoId, (err, result) => {
+      if (err) {
+          res.status(500).send('Erro ao atualizar a notificação');
+          return;
+      }
+      res.send('Notificação atualizada com sucesso');
+  });
+});
 
 
 app.listen(port, () => {
