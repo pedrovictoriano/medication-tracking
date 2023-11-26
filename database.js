@@ -179,6 +179,28 @@ const getLotes = (callback) => {
     });
 };
 
+const insertLotes = (lote, callback) => {
+    const query = `
+        INSERT INTO lotes 
+            (numero_lote, data_fabricacao, data_validade)
+        VALUES 
+            (?, ?, ?)
+    `;
+
+    const params = [
+        lote.numeroLote,
+        lote.dataFabricacao,
+        lote.dataValidade
+    ];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
 const verificarLotesProximosDoVencimento = (callback) => {
     const query = `
         SELECT 
@@ -269,6 +291,7 @@ module.exports = {
     getMedicamentoById,
     updateMedicamento,
     getLotes,
+    insertLotes,
     verificarLotesProximosDoVencimento,
     inserirNotificacao,
     limparNotificacoesAntigas,

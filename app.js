@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cron = require('node-cron');
+const moment = require('moment');
+
 
 const db = require('./database'); // Importa o módulo do banco de dados
 
@@ -192,6 +194,22 @@ app.get('/api/lotes', (req, res) => {
   });
 });
 
+app.post('/api/lotes', (req, res) => {
+  const lote = {
+    numeroLote: req.body.numeroLote,
+    dataFabricacao: moment(req.body.dataFabricacao, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+    dataValidade: moment(req.body.dataValidade, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+  };
+
+  db.insertLotes(lote, (err) => {
+    if (err) {
+      res.status(500).send('Erro ao cadastrar lote');
+      return;
+    }
+    res.send('Lote cadastrado com sucesso');
+  });
+});
+
 const verificarLotes = () => {
   console.log('Iniciando limpeza de Lotes');
   db.limparNotificacoesAntigas((err, results) => {
@@ -227,11 +245,11 @@ cron.schedule('50 23 * * *', verificarLotes);
 app.get('/api/notificacoes', (req, res) => {
   // Supondo que a função 'buscarNotificacoes' esteja definida em database.js
   db.buscarNotificacoes((err, notificacoes) => {
-      if (err) {
-          res.status(500).send('Erro ao buscar notificações');
-          return;
-      }
-      res.json(notificacoes);
+    if (err) {
+      res.status(500).send('Erro ao buscar notificações');
+      return;
+    }
+    res.json(notificacoes);
   });
 });
 
@@ -239,11 +257,11 @@ app.post('/api/notificacoes/visualizar/:id', (req, res) => {
   const notificacaoId = req.params.id;
 
   db.marcarComoVisualizada(notificacaoId, (err, result) => {
-      if (err) {
-          res.status(500).send('Erro ao atualizar a notificação');
-          return;
-      }
-      res.send('Notificação atualizada com sucesso');
+    if (err) {
+      res.status(500).send('Erro ao atualizar a notificação');
+      return;
+    }
+    res.send('Notificação atualizada com sucesso');
   });
 });
 

@@ -91,14 +91,16 @@
           </div>
           <!-- /.content-wrapper -->
 
+          <%- include('modal_insert_lotes.ejs') %>
+
           <%- include('../partials/footer') %>
   </div>
   <!-- ./wrapper -->
   <%- include('../partials/scripts') %>
     <script src="js/lotes/lotes.js"></script>
     <script src="js/lotes/listLotes.js"></script>
+    <script src="js/lotes/insertLotes.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>
-    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- DataTables  & Plugins -->
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -112,6 +114,10 @@
     <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="plugins/jquery-validation/localization/messages_pt_BR.min.js"></script>
 </body>
 
 </html>
