@@ -52,6 +52,7 @@ $(document).ready(function () {
             success: function(response) {
                 $('#modalInsertLote').modal('hide');
                 toastr.success('Medicamento cadastrado com sucesso!');
+                $('#formInsertLotes').trigger('reset'); // Resetar o formulário
                 $('#listLotes').DataTable().ajax.reload();
             },
             error: function(xhr, status, error) {

@@ -9,7 +9,7 @@ $(document).ready(function () {
         $('#modalCadastroMedicamento').modal('hide');
 
         toastr.success('Medicamento cadastrado com sucesso!');
-
+        $('#formCadastroMedicamento').trigger('reset'); // Resetar o formulário
         // Recarregar a lista de medicamentos ou exibir uma mensagem
       },
       error: function (error) {
