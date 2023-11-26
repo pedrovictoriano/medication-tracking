@@ -48,63 +48,32 @@
                     </div>
                   </div>
                   <!-- /.card-header -->
-                  <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap" id="listaDeMedicamentos">
+                  <div class="card-body">
+                    <table id="listMedicamentos" class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th>ID</th>
                           <th>Fabricante</th>
                           <th>Nome Comercial</th>
-                          <th>Nome Generico</th>
+                          <th>Nome Genérico</th>
                           <th>Forma Farmaceutica</th>
-                          <th>Opções</th>
+                          <th>Ações</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <% dados.forEach(function(dado) { %>
-                          <tr>
-                            <td>
-                              <%= dado.medicamento_id %>
-                            </td>
-                            <td>
-                              <%= dado.fabricante_nome %>
-                            </td>
-                            <td>
-                              <%= dado.medicamento_nome_comercial %>
-                            </td>
-                            <td>
-                              <%= dado.medicamento_nome_generico %>
-                            </td>
-                            <td>
-                              <%= dado.forma_farmaceutica_descricao %>
-                            </td>
-                            <td>
-                              <div class="btn-group btn-group-sm">
-                                <button type="button" class="btn btn-outline-secondary btn-update-medicamento" data-medicamento-id="<%= dado.medicamento_id %>">
-                                  <i class="fas fa-pen"></i>
-                                </button>
-                              <button type="button" class="btn btn-outline-info btn-view-medicamento" data-medicamento-id="<%= dado.medicamento_id %>">
-                                <i class="fas fa-eye"></i>
-                              </button>
-                             </div>
-                            </td>
-                          </tr>
-                          <% }); %>
-                      </tbody>
+                      <tbody></tbody>
+                      <tfoot>
+                        <tr>
+                          <th>ID</th>
+                          <th>Fabricante</th>
+                          <th>Nome Comercial</th>
+                          <th>Nome Genérico</th>
+                          <th>Forma Farmaceutica</th>
+                          <th>Ações</th>
+                        </tr>
+                      </tfoot>
                     </table>
                   </div>
                   <!-- /.card-body -->
-                  <div class="card-footer clearfix">
-                    <ul class="pagination pagination-sm m-0 float-right">
-                      <% for(let i=1; i <=totalPages; i++) { %>
-                        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-                          <a class="page-link" href="/medicamentos?currentPage=<%= i %>">
-                            <%= i %>
-                          </a>
-                        </li>
-                        <% } %>
-                    </ul>
-                  </div>
                 </div>
                 <!-- /.card -->
               </div>
@@ -122,6 +91,7 @@
   <!-- ./wrapper -->
   <%- include('../partials/scripts') %>
     <script src="js/medicamentos/medicamentos.js"></script>
+    <script src="js/medicamentos/listMedicamentos.js"></script>
     <script src="js/medicamentos/cadastroMedicamento.js"></script>
     <script src="js/medicamentos/updateMedicamento.js"></script>
     <script src="plugins/select2/js/select2.full.min.js"></script>

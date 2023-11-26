@@ -9,17 +9,7 @@ const connection = mysql.createConnection({
     database: process.env.DB_NAME
 });
 
-const getCountMedicamentos = (callback) => {
-    const query = 'SELECT COUNT(*) AS total FROM medicamentos';
-    connection.query(query, (err, results) => {
-        if (err) {
-            return callback(err, null);
-        }
-        callback(null, results[0].total);
-    });
-};
-
-const getMedicamentos = (limit, offset, callback) => {
+const getMedicamentos = (callback) => {
     const query = `
         SELECT 
             m.id AS medicamento_id,
@@ -36,11 +26,9 @@ const getMedicamentos = (limit, offset, callback) => {
                 INNER JOIN fabricantes f ON m.fabricante_id = f.id
                 INNER JOIN formas_farmaceuticas fm ON m.forma_farmaceutica_id = fm.id
                 INNER JOIN unidades u ON m.unidade_id = u.id
-        ORDER BY 1 ASC
-        LIMIT ? OFFSET ?
     `;
 
-    connection.query(query, [limit, offset], (err, results) => {
+    connection.query(query, (err, results) => {
         if (err) {
             return callback(err, null);
         }
@@ -283,7 +271,6 @@ const marcarComoVisualizada = (notificacaoId, callback) => {
 
 module.exports = {
     getMedicamentos,
-    getCountMedicamentos,
     insertMedicamentos,
     getFabricantes,
     getFormasFarmaceuticas,

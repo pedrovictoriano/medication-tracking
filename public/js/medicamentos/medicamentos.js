@@ -4,19 +4,19 @@ $(document).ready(function () {
         theme: 'bootstrap4'
     })
 
-    $.get('/fabricantes', function (fabricantes) {
+    $.get('/api/fabricantes', function (fabricantes) {
         fabricantes.forEach(function (fabricante) {
             $('#cadastro-fabricante').append(new Option(fabricante.id + " - " + fabricante.nome, fabricante.id));
         });
     });
 
-    $.get('/formas-farmaceuticas', function (formas_farmaceuticas) {
+    $.get('/api/formas-farmaceuticas', function (formas_farmaceuticas) {
         formas_farmaceuticas.forEach(function (forma_farmaceutica) {
             $('#cadastro-forma-farmaceutica').append(new Option(forma_farmaceutica.id + " - " + forma_farmaceutica.descricao, forma_farmaceutica.id));
         });
     });
 
-    $.get('/unidades', function (unidades) {
+    $.get('/api/unidades', function (unidades) {
         unidades.forEach(unidade => {
             $('#cadastro-unidade').append(
                 $('<option>', {
