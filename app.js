@@ -96,6 +96,6 @@ app.use('/medicamentos', medicamentosRoutes);
 app.use('/api/notificacoes', apiNotificacoesRoutes);
 app.use('/api/unidades', apiUnidadesRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${process.env.PORT}`);
+app.listen(process.env.NODE_PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${process.env.NODE_PORT}`);
 });
