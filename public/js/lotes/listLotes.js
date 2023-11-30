@@ -63,7 +63,7 @@ $(document).ready(function () {
             {
                 "targets": 4, // Indica a última coluna
                 "className": "dt-center",
-                "width": "120px", // Defina a largura que deseja
+                "width": "140px", // Defina a largura que deseja
                 "searchable": false // Se você não quer que a coluna seja pesquisável
             }
         ]
