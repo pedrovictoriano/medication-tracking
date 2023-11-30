@@ -189,6 +189,53 @@ const insertLotes = (lote, callback) => {
     });
 };
 
+const getLoteById = (loteId, callback) => {
+    const query = `
+         SELECT
+            id,
+            numero_lote,
+            DATE_FORMAT(data_fabricacao, '%d/%m/%Y') AS data_fabricacao_formatada,
+            DATE_FORMAT(data_validade, '%d/%m/%Y') AS data_validade_formatada
+        FROM
+            lotes
+        WHERE
+            id = ?;
+        `;
+
+    connection.query(query, [loteId], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const updateLote = (loteId, lote, callback) => {
+    const query = `
+        UPDATE lotes
+        SET
+            numero_lote = ?,
+            data_fabricacao = ?,
+            data_validade = ?
+        WHERE
+            id = ?
+    `;
+
+    const params = [
+        lote.numeroLote,
+        lote.dataFabricacao,
+        lote.dataValidade,
+        loteId
+    ];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
 const verificarLotesProximosDoVencimento = (callback) => {
     const query = `
         SELECT 
@@ -279,6 +326,8 @@ module.exports = {
     updateMedicamento,
     getLotes,
     insertLotes,
+    getLoteById,
+    updateLote,
     verificarLotesProximosDoVencimento,
     inserirNotificacao,
     limparNotificacoesAntigas,
