@@ -121,6 +121,7 @@ $(document).ready(function () {
         $('#modalUpdateMedicamento').modal('hide');
         toastr.success('Medicamento atualizado com sucesso!');
         $('#listMedicamentos').DataTable().ajax.reload();
+        $('#formUpdateMedicamento').trigger('reset'); // Resetar o formulário
       },
       error: function (error) {
         toastr.error('Erro ao atualizar medicamento.');

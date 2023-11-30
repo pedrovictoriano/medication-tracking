@@ -43,6 +43,7 @@ $(document).ready(function () {
         $('#modalUpdateLote').modal('hide');
         toastr.success('Lote atualizado com sucesso!');
         $('#listLotes').DataTable().ajax.reload();
+        $('#formUpdateLote').trigger('reset'); // Resetar o formulário
       },
       error: function (error) {
         toastr.error('Erro ao atualizar lote.');
