@@ -57,23 +57,20 @@
                             <th>Lote/Série</th>
                             <th>Data Fabricação</th>
                             <th>Data Validade</th>
-                            <th>Dias para vencer</th>
+                            <th>
+                              Dias para vencer
+                              <a href="#" data-toggle="tooltip" data-html="true" data-placement="top" title="> 90 dias: <span class='badge bg-primary'>Azul</span><br>
+                              <= 90 dias e > 60 dias: <span class='badge bg-warning'>Amarelo</span><br>
+                              <= 60 dias e > 30 dias: <span class='badge bg-orange' style='color: white !important'>Laranja</span><br>
+                              <= 30 dias: <span class='badge bg-danger'>Vermelho</span>">
+                                <i class="fas fa-info-circle"></i>
+                              </a>
+                            </th>
                             <th>Saldo</th>
                             <th>Ações</th>
                           </tr>
                         </thead>
                         <tbody></tbody>
-                        <tfoot>
-                          <tr>
-                            <th>ID</th>
-                            <th>Lote/Série</th>
-                            <th>Data Fabricação</th>
-                            <th>Data Validade</th>
-                            <th>Dias para vencer</th>
-                            <th>Saldo</th>
-                            <th>Ações</th>
-                          </tr>
-                        </tfoot>
                       </table>
                     </div>
                     <!-- /.card-body -->
@@ -88,9 +85,9 @@
           <!-- /.content-wrapper -->
 
           <%- include('modal_insert_lotes.ejs') %>
-          <%- include('modal_update_lotes.ejs') %>
+            <%- include('modal_update_lotes.ejs') %>
 
-          <%- include('../partials/footer') %>
+              <%- include('../partials/footer') %>
   </div>
   <!-- ./wrapper -->
   <%- include('../partials/scripts') %>
