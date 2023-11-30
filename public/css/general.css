@@ -2,3 +2,17 @@
     word-wrap: break-word;
     white-space: normal;
 }
+
+.dataTables_wrapper .dataTable {
+    border-collapse: collapse;
+}
+
+.dataTables_wrapper .dataTable th,
+.dataTables_wrapper .dataTable td {
+    border-right: none;
+    border-left: none;
+}
+
+.dataTables_wrapper .dataTable tr {
+    border-bottom: 1px solid #ddd; /* Cor e estilo da linha horizontal */
+}
