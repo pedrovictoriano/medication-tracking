@@ -8,17 +8,17 @@ $(document).ready(function () {
             { "data": "medicamento_nome_generico" },
             { "data": "forma_farmaceutica_descricao" },
             {
-                "data": "id",
+                "data": "medicamento_id",
                 "render": function (data, type, row) {
                     return `
-                        <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-outline-secondary btn-update-lote" data-lote-id="${data}">
-                              <i class="fas fa-pen"></i>
-                            </button>
-                            <button type="button" class="btn btn-outline-info btn-view-lote" data-lote-id="${data}">
-                              <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button" class="btn btn-outline-secondary btn-update-medicamento" data-medicamento-id="${data}">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-info btn-view-medicamento" data-medicamento-id="${data}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                     `;
                 }
             }
