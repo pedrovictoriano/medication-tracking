@@ -1,15 +1,12 @@
 $(document).ready(function () {
     // Adicionar método personalizado para validação de data
     jQuery.validator.addMethod("greaterThanToday", function (value, element) {
-        console.log("Data inserida:", value); // Verifique o valor da data
         if (value.length === 0) {
             return true; // Se o campo estiver vazio, não aplicar esta validação
         }
 
         const dataInserida = moment(value, "DD/MM/YYYY");
         const hoje = moment().startOf('day'); // Ignorar horário atual
-        console.log("Data convertida:", dataInserida.format("YYYY-MM-DD")); // Verifique a conversão
-    console.log("Hoje:", hoje.format("YYYY-MM-DD")); // Verifique a data de hoje
         return dataInserida.isAfter(hoje);
     }, "Por favor, insira uma data maior que hoje.");
 
