@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#listLotes').DataTable({
+    var table = $('#listLotes').DataTable({
         "ajax": "/api/lotes",
         "columns": [
             { "data": "id" },
@@ -18,7 +18,7 @@ $(document).ready(function () {
             },
             {
                 "data": "dias_para_vencer",
-                "render": function(data, type, row) {
+                "render": function (data, type, row) {
                     if (data > 90) {
                         return `<span class="badge bg-primary">${data}</span>`;
                     } else if (data <= 90 && data > 60) {
@@ -29,7 +29,7 @@ $(document).ready(function () {
                         return `<span class="badge bg-danger">${data}</span>`;
                     }
                 }
-            },    
+            },
             { "data": "id" },
             {
                 "data": "id",
@@ -48,7 +48,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[0, "desc"]] ,
+        "order": [[0, "desc"]],
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
         },
@@ -70,4 +70,5 @@ $(document).ready(function () {
 
     });
 
+    new $.fn.dataTable.FixedHeader(table);
 });

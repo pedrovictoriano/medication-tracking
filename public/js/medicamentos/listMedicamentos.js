@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#listMedicamentos').DataTable({
+    var table = $('#listMedicamentos').DataTable({
         "ajax": "/api/medicamentos",
         "columns": [
             { "data": "medicamento_id" },
@@ -24,7 +24,7 @@ $(document).ready(function () {
             }
 
         ],
-        "order": [[0, "desc"]] ,
+        "order": [[0, "desc"]],
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json"
         },
@@ -45,5 +45,7 @@ $(document).ready(function () {
         ]
 
     });
+
+    new $.fn.dataTable.FixedHeader(table);
 
 });
