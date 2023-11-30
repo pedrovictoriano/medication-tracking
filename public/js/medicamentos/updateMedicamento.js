@@ -5,7 +5,7 @@ $(document).ready(function () {
   });
 
   function carregarFabricantes(fabricanteIdSelecionado) {
-    $.get('/fabricantes', function (fabricantes) {
+    $.get('api/fabricantes', function (fabricantes) {
       var selectFabricante = $('#updateFabricante');
       selectFabricante.empty(); // Limpar o select para não duplicar os fabricantes
       selectFabricante.append('<option></option>'); // Adicionar o placeholder
@@ -25,7 +25,7 @@ $(document).ready(function () {
   }
 
   function carregarFormasFarmaceuticas(formaFarmaceuticaIdSelecionado) {
-    $.get('/formas-farmaceuticas', function (formas_farmaceuticas) {
+    $.get('api/formas-farmaceuticas', function (formas_farmaceuticas) {
       var select = $('#updateFormaFarmaceutica');
       select.empty();
       select.append('<option></option>');
@@ -43,7 +43,7 @@ $(document).ready(function () {
   }
 
   function carregarUnidades(unidadeIdSelecionado) {
-    $.get('/unidades', function (unidades) {
+    $.get('api/unidades', function (unidades) {
       var select = $('#updateUnidade');
       select.empty();
       select.append('<option></option>');
