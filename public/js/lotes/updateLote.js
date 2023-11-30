@@ -15,6 +15,13 @@ $(document).ready(function () {
         $('#modalUpdateLote #updateNumeroLote').val(lote.numero_lote);
         $('#modalUpdateLote #updateDataFabricacao').val(lote.data_fabricacao_formatada);
         $('#modalUpdateLote #updateDataValidade').val(lote.data_validade_formatada);
+        if (lote.data_atualizacao_formatada) {
+          // Se houver uma data, formate-a e mostre o campo
+          $('#modalUpdateLote #updateAtualizacao').val(lote.data_atualizacao_formatada);
+        } else {
+            // Se não houver data, oculte o campo
+            $('#modalUpdateLote #updateAtualizacao').closest('.form-group').hide();
+        }
 
         // Abre o modal de edição
         $('#modalUpdateLote').modal('show');

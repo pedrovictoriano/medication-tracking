@@ -191,15 +191,16 @@ const insertLotes = (lote, callback) => {
 
 const getLoteById = (loteId, callback) => {
     const query = `
-         SELECT
+        SELECT
             id,
             numero_lote,
             DATE_FORMAT(data_fabricacao, '%d/%m/%Y') AS data_fabricacao_formatada,
-            DATE_FORMAT(data_validade, '%d/%m/%Y') AS data_validade_formatada
+            DATE_FORMAT(data_validade, '%d/%m/%Y') AS data_validade_formatada,
+            DATE_FORMAT(data_atualizacao, '%d/%m/%Y %H:%i') AS data_atualizacao_formatada
         FROM
             lotes
         WHERE
-            id = ?;
+            id = ?
         `;
 
     connection.query(query, [loteId], (err, results) => {
