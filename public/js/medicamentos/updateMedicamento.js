@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $('.btn-update-medicamento').on('click', function () {
+  $('#listMedicamentos').on('click', '.btn-update-medicamento', function () {
     var medicamentoId = $(this).data('medicamento-id');
     openModalUpdateMedicamento(medicamentoId);
   });
@@ -79,7 +79,7 @@ $(document).ready(function () {
 
   function openModalUpdateMedicamento(medicamentoId) {
     $.ajax({
-      url: '/medicamentos/' + medicamentoId,
+      url: 'api/medicamentos/' + medicamentoId,
       method: 'GET',
       success: function (data) {
         $('#modalUpdateMedicamento').modal('hide');
