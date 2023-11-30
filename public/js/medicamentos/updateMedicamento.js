@@ -120,6 +120,7 @@ $(document).ready(function () {
       success: function (response) {
         $('#modalUpdateMedicamento').modal('hide');
         toastr.success('Medicamento atualizado com sucesso!');
+        $('#listMedicamentos').DataTable().ajax.reload();
       },
       error: function (error) {
         toastr.error('Erro ao atualizar medicamento.');
