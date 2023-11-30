@@ -1,4 +1,9 @@
 $(document).ready(function () {
+  // Carregando data-mask para inputs
+  $("[data-mask]").inputmask();
+
+  $('[data-toggle="tooltip"]').tooltip();
+
   $('[data-widget="pushmenu"]').PushMenu('collapse');
   // Carregar notificações ao carregar a página
   carregarNotificacoes();
