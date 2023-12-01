@@ -317,6 +317,56 @@ const marcarComoVisualizada = (notificacaoId, callback) => {
     });
 };
 
+const getEstoque = (callback) => {
+    const query = `
+        SELECT 
+            *
+        FROM
+            estoque
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const getLocalizacoes = (callback) => {
+    const query = `
+        SELECT 
+            *
+        FROM
+            localizacoes
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const getTiposMovimentacoes = (callback) => {
+    const query = `
+        SELECT 
+            *
+        FROM
+            tipos_movimentacoes
+    `;
+
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+
+
 module.exports = {
     getMedicamentos,
     insertMedicamentos,
@@ -333,5 +383,8 @@ module.exports = {
     inserirNotificacao,
     limparNotificacoesAntigas,
     buscarNotificacoes,
-    marcarComoVisualizada
+    marcarComoVisualizada,
+    getEstoque,
+    getLocalizacoes,
+    getTiposMovimentacoes
 };

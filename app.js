@@ -17,6 +17,10 @@ const apiMedicamentosRoutes = require('./routes/api/medicamentos');
 const medicamentosRoutes = require('./routes/views/medicamentos');
 const apiNotificacoesRoutes = require('./routes/api/notificacoes');
 const apiUnidadesRoutes = require('./routes/api/unidades');
+const apiEstoqueRoutes = require('./routes/api/estoque');
+const estoqueRoutes = require('./routes/views/estoque');
+const apiLocalizacoesRoutes = require('./routes/api/localizacoes');
+const apiTiposMovimentacoesRoutes = require('./routes/api/tiposMovimentacoes');
 
 // Define EJS como o mecanismo de visualização
 app.set('view engine', 'ejs');
@@ -95,7 +99,12 @@ app.use('/api/medicamentos', apiMedicamentosRoutes);
 app.use('/medicamentos', medicamentosRoutes);
 app.use('/api/notificacoes', apiNotificacoesRoutes);
 app.use('/api/unidades', apiUnidadesRoutes);
+app.use('/api/estoque', apiEstoqueRoutes);
+app.use('/estoque', estoqueRoutes);
+app.use('/api/localizacoes', apiLocalizacoesRoutes);
+app.use('/api/tipos_movimentacoes', apiTiposMovimentacoesRoutes);
 
 app.listen(process.env.NODE_PORT, () => {
   console.log(`Servidor rodando em http://localhost:${process.env.NODE_PORT}`);
 });
+
