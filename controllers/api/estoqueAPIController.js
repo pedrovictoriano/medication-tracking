@@ -6,6 +6,6 @@ exports.listarEstoque = (req, res) => {
             res.status(500).send('Erro ao obter Estoque');
             return;
         }
-        res.json(results);
+        res.json({ data: results });
     });
 };

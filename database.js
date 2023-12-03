@@ -320,9 +320,13 @@ const marcarComoVisualizada = (notificacaoId, callback) => {
 const getEstoque = (callback) => {
     const query = `
         SELECT 
-            *
+            e.id,
+            tm.descricao as tipo_movimentacao_descricao,
+            e.documento,
+            DATE_FORMAT(e.data_movimentacao, '%d/%m/%Y %h:%m') AS data_movimentacao_formatada
         FROM
-            estoque
+            estoque e
+                INNER JOIN tipos_movimentacoes	tm ON e.tipo_movimentacao_id = tm.id
     `;
 
     connection.query(query, (err, results) => {
