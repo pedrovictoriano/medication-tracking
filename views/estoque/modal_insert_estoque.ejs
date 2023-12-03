@@ -1,0 +1,92 @@
+<div id="modalInsertEstoque" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Estoque</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- BS Stepper -->
+                <div class="bs-stepper">
+                    <div class="bs-stepper-header" role="tablist">
+                        <!-- your steps here -->
+                        <div class="step" data-target="#estoque-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="estoque-part"
+                                id="estoque-part-trigger">
+                                <span class="bs-stepper-circle">1</span>
+                                <span class="bs-stepper-label">Estoque</span>
+                            </button>
+                        </div>
+                        <div class="line"></div>
+                        <div class="step" data-target="#estoque-itens-part">
+                            <button type="button" class="step-trigger" role="tab" aria-controls="estoque-itens-part"
+                                id="estoque-itens-part-trigger">
+                                <span class="bs-stepper-circle">2</span>
+                                <span class="bs-stepper-label">Itens Estoque</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="estoque-part" class="content" role="tabpanel" aria-labelledby="estoque-part-trigger">
+                            <form id="formEstoquePart">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Documento</label>
+                                            <input class="form-control" type="text" name="documento" id="insertDocumento"
+                                                placeholder="Informe um Documento" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Movimentação</label>
+                                            <select class="form-control select2bs4" name="movimentacao"
+                                                id="insertTipoMovimentacao" style="width: 100%;"
+                                                data-placeholder="Selecione uma Movimentação" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label for="insertDataMovimentacao">Data Movimentação</label>
+                                        <input type="text" class="form-control" name="dataMovimentacao" id="insertDataMovimentacao"
+                                            data-inputmask="'alias': 'datetime', 'inputFormat': 'dd/mm/yyyy HH:MM', 'placeholder': 'dd/mm/yyyy hh:mm'"
+                                            data-mask required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Observações</label>
+                                            <textarea class="form-control" rows="2" name="observacoes" id="insertObservacoes"
+                                                placeholder="Informe uma Observação"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="estoque-itens-part" class="content" role="tabpanel"
+                            aria-labelledby="estoque-itens-part-trigger">
+                            <form id="formEstoqueItensPart">
+                                <div class="row">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <div>
+                    <button type="button" class="btn btn-primary" id="previous-btn" style="display: none;"
+                        onclick="stepper.previous()">Anterior</button>
+                    <button type="button" class="btn btn-primary" id="next-btn">Próximo</button>
+                    <button type="submit" class="btn btn-primary" id="submit-btn" style="display: none;">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

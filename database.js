@@ -337,6 +337,29 @@ const getEstoque = (callback) => {
     });
 };
 
+const insertEstoque = (estoque, callback) => {
+    const query = `
+        INSERT INTO estoque 
+            (tipo_movimentacao_id, documento, data_movimentacao, observacoes)
+        VALUES 
+            (?, ?, ?, ?)
+    `;
+
+    const params = [
+        estoque.movimentacao,
+        estoque.documento,
+        estoque.dataMovimentacao,
+        estoque.observacoes
+    ];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+};
+
 const getLocalizacoes = (callback) => {
     const query = `
         SELECT 
@@ -369,8 +392,6 @@ const getTiposMovimentacoes = (callback) => {
     });
 };
 
-
-
 module.exports = {
     getMedicamentos,
     insertMedicamentos,
@@ -389,6 +410,7 @@ module.exports = {
     buscarNotificacoes,
     marcarComoVisualizada,
     getEstoque,
+    insertEstoque,
     getLocalizacoes,
     getTiposMovimentacoes
 };
