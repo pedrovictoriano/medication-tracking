@@ -36,8 +36,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Documento</label>
-                                            <input class="form-control" type="text" name="documento" id="insertDocumento"
-                                                placeholder="Informe um Documento" required>
+                                            <input class="form-control" type="text" name="documento"
+                                                id="insertDocumento" placeholder="Informe um Documento" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -52,16 +52,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label for="insertDataMovimentacao">Data Movimentação</label>
-                                        <input type="text" class="form-control" name="dataMovimentacao" id="insertDataMovimentacao"
-                                            data-inputmask="'alias': 'datetime', 'inputFormat': 'dd/mm/yyyy HH:MM', 'placeholder': 'dd/mm/yyyy hh:mm'"
-                                            data-mask required>
+                                            <label for="insertDataMovimentacao">Data Movimentação</label>
+                                            <input type="text" class="form-control" name="dataMovimentacao"
+                                                id="insertDataMovimentacao"
+                                                data-inputmask="'alias': 'datetime', 'inputFormat': 'dd/mm/yyyy HH:MM', 'placeholder': 'dd/mm/yyyy hh:mm'"
+                                                data-mask required>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Observações</label>
-                                            <textarea class="form-control" rows="2" name="observacoes" id="insertObservacoes"
+                                            <textarea class="form-control" rows="2" name="estoqueObservacoes"
+                                                id="insertEstoqueObservacoes"
                                                 placeholder="Informe uma Observação"></textarea>
                                         </div>
                                     </div>
@@ -72,6 +74,74 @@
                             aria-labelledby="estoque-itens-part-trigger">
                             <form id="formEstoqueItensPart">
                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Lote</label>
+                                            <select class="form-control select2bs4" name="lote" id="insertLotes"
+                                                style="width: 100%;" data-placeholder="Selecione um Lote" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Medicamento</label>
+                                            <select class="form-control select2bs4" name="medicamento"
+                                                id="insertMedicamento" style="width: 100%;"
+                                                data-placeholder="Selecione um Medicamento" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Apresentação</label>
+                                            <input class="form-control" type="text" name="apresentacao" id="insertApresetacao" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Quantidade</label>
+                                            <input type="number" class="form-control" id="insertQuantidade"
+                                                name="quantidade" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Localização</label>
+                                            <select class="form-control select2bs4" name="localizacao"
+                                                id="insertLocalizacao" style="width: 100%;"
+                                                data-placeholder="Selecione uma Localização" required>
+                                                <option></option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Observações</label>
+                                            <textarea class="form-control" rows="2" name="itemEstoqueObservacoes"
+                                                id="insertItemEstoqueObservacoes"
+                                                placeholder="Informe uma Observação"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right">
+                                        <button type="button" class="btn btn-primary" id="btnAdicionarItem">Adicionar Item</button>
+                                    </div>
+                                    <table class="table table-sm" id="listItensEstoque" style="margin-top: 15px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Lote</th>
+                                                <th>Medicamento</th>
+                                                <th>Quantidade</th>
+                                                <th>Localização</th>
+                                                <th>Observações</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </form>
                         </div>
@@ -84,7 +154,8 @@
                     <button type="button" class="btn btn-primary" id="previous-btn" style="display: none;"
                         onclick="stepper.previous()">Anterior</button>
                     <button type="button" class="btn btn-primary" id="next-btn">Próximo</button>
-                    <button type="submit" class="btn btn-primary" id="submit-btn" style="display: none;">Cadastrar</button>
+                    <button type="button" class="btn btn-primary" id="submit-btn"
+                        style="display: none;">Cadastrar</button>
                 </div>
             </div>
         </div>
