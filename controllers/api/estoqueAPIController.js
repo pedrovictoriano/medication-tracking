@@ -16,7 +16,7 @@ exports.cadastrarEstoque = (req, res) => {
         documento: req.body.documento,
         movimentacao: req.body.movimentacao,
         dataMovimentacao: moment(req.body.dataMovimentacao, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-        observacoes: req.body.observacoes
+        estoqueObservacoes: req.body.estoqueObservacoes
     };
 
     db.insertEstoque(estoque, (err) => {

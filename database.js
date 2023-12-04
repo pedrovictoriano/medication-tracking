@@ -349,7 +349,7 @@ const insertEstoque = (estoque, callback) => {
         estoque.movimentacao,
         estoque.documento,
         estoque.dataMovimentacao,
-        estoque.observacoes
+        estoque.estoqueObservacoes
     ];
 
     connection.query(query, params, (err, results) => {
