@@ -17,7 +17,7 @@ exports.cadastrarMedicamentos = (req, res) => {
         nomeGenerico: req.body.nomeGenerico,
         formaFarmaceuticaId: req.body.formaFarmaceuticaId,
         unidadeId: req.body.unidadeId,
-        apresentacao: req.body.apresentacao,
+        apresentacao: req.body.apresentacao.replace(/\D/g, ''), // Remove caracteres não numéricos
         instrucoes: req.body.instrucoes,
         observacoes: req.body.observacoes
     };
@@ -39,7 +39,7 @@ exports.atualizarMedicamento = (req, res) => {
         nomeGenerico: req.body.nomeGenerico,
         formaFarmaceuticaId: req.body.formaFarmaceuticaId,
         unidadeId: req.body.unidadeId,
-        apresentacao: req.body.apresentacao,
+        apresentacao: req.body.apresentacao.replace(/\D/g, ''), // Remove caracteres não numéricos
         instrucoes: req.body.instrucoes,
         observacoes: req.body.observacoes
     };

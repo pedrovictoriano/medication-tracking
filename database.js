@@ -18,7 +18,7 @@ const getMedicamentos = (callback) => {
             m.nome_generico AS medicamento_nome_generico,
             fm.descricao AS forma_farmaceutica_descricao,
             u.descricao AS unidade_descricao,
-            CONCAT(m.apresentacao, " ", u.descricao) AS medicamento_apresentacao,
+            CONCAT(m.apresentacao, " ", u.abreviatura) AS medicamento_apresentacao,
             m.instrucoes AS medicamento_instrucoes,
             m.observacoes AS medicamento_observacoes 
         FROM
