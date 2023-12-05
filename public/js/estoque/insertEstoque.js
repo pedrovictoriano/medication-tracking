@@ -179,13 +179,7 @@ $('#submit-btn').on('click', function () {
         insertEstoque();
     } else {
         // Se não houver itens, exibe um alerta para o usuário
-        Swal.fire({
-            title: 'Lista Vazia',
-            text: "Você precisa adicionar ao menos um item antes de prosseguir!",
-            icon: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok'
-        });
+        toastr.warning('Você precisa adicionar ao menos um item antes de prosseguir!');
     }
 });
 
