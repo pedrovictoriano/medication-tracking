@@ -242,10 +242,23 @@ function inserirItensEstoque(estoqueId) {
 }
 
 function finalizarInsercaoEstoque() {
-    $('#modalInsertEstoque').modal('hide');
     toastr.success('Estoque e itens cadastrados com sucesso!');
     $('#formEstoquePart').trigger('reset');
     $('#formEstoqueItensPart').trigger('reset');
     $('#listEstoque').DataTable().ajax.reload();
     itensEstoque = []; // Limpa o array de itens
+    $('#listItensEstoque tbody').empty();
+
+    // Resetar os campos Select2 (se estiver usando)
+    $('#modalInsertEstoque').find('.select2bs4').val(null).trigger('change');
+
+    // Resetar o BS Stepper para a primeira etapa
+    stepper.to(1);
+
+    // Limpar quaisquer mensagens de erro de validação
+    $('#modalInsertEstoque').find('.is-invalid').removeClass('is-invalid');
+    $('#modalInsertEstoque').find('.invalid-feedback').remove();
+
+    // Fechar o modal
+    $('#modalInsertEstoque').modal('hide');
 }
