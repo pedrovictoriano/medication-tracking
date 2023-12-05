@@ -32,14 +32,6 @@ $(document).ready(function () {
     });
   });
 
-  $.get('/api/lotes', function (lotes) {
-    lotes.data.forEach(function (lote) {
-      $('#insertLotes').append(new Option(lote.id + " - " + lote.numero_lote, lote.id));
-    });
-  });
-
-
-
   $.get('/api/medicamentos', function (medicamentos) {
     medicamentos.data.forEach(medicamento => {
       $('#insertMedicamento').append(
@@ -52,10 +44,66 @@ $(document).ready(function () {
     });
   });
 
+  // Depois de selecionar medicamento mostra apresentação e busca lotes
   $('#insertMedicamento').on('change', function () {
-    var apresentacao = $(this).find('option:selected').data('apresentacao');
-    $('#insertApresetacao').val(apresentacao);
-});
+      var apresentacao = $(this).find('option:selected').data('apresentacao');
+      $('#insertApresetacao').val(apresentacao);
+
+    var medicamentoId = $(this).find('option:selected').val();
+
+    $.ajax({
+      url: `/api/medicamentos/${medicamentoId}/lotes`,
+      type: 'GET',
+      success: function (lotes, textStatus, xhr) {
+        $('#insertLotes').empty(); // Limpa opções anteriores antes de adicionar novas
+        $('#insertLoteQtde').val("");
+        $('#insertLotes').append($('<option>', {
+          value: '',
+          text: 'Selecione um Lote',
+          selected: true,
+          disabled: true
+        }));
+
+        if (xhr.status === 204) {
+          toastr.info('Não há lotes disponiveis para o medicamento selecionado');
+        } else {
+          lotes.forEach(function (lote) {
+            $('#insertLotes').append(
+              $('<option>', {
+                value: lote.id,
+                text: lote.id + " - " + lote.numero_lote,
+                'data-loteqtde': lote.quantidade_total
+              })
+            );
+          });
+        }
+      },
+      error: function (xhr, status, error) {
+        $('#insertLotes').empty(); // Limpa opções anteriores antes de adicionar novas
+        toastr.error('Erro ao buscar lotes');
+      }
+    });
+  });
+
+  // Mostrando qtde. do lote
+  $('#insertLotes').on('change', function () {
+    var qtde = $(this).find('option:selected').data('loteqtde');
+    $('#insertLoteQtde').val(qtde); // Atribui o valor ao campo de quantidade
+  });
+
+  // Mostrando qtde. do lote
+  $('#insertQuantidade').on('change', function () {
+    let qtdeInformada = $('#insertQuantidade').val();
+    let qtdeEstoque = $('#insertLoteQtde').val();
+
+    if (qtdeInformada > qtdeEstoque) {
+      toastr.warning('Informe um quantidade menor ou igual do que há em estoque');
+      //Bloquear botão de inserir
+      $('#btnAdicionarItem').hide();
+    }else{
+      $('#btnAdicionarItem').show();
+    }    
+  });
 
   $.get('/api/localizacoes', function (localizacoes) {
     localizacoes.forEach(function (localizacao) {

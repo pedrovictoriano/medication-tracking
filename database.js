@@ -77,6 +77,35 @@ const getMedicamentoById = (medicamentoId, callback) => {
     });
 };
 
+const getMedicamentoLotes = (medicamentoId, callback) => {
+    //Lista lotes disponiveis e sua quantidade para o medicamento fornecido, onde estoque maior que 0 e ordena pelos mais proximos do vencimento
+    const query = `
+        SELECT 
+            l.id,
+            l.numero_lote,
+            SUM(CASE WHEN tm.operacao = 'entrada' THEN ei.qtd ELSE 0 END) - 
+            SUM(CASE WHEN tm.operacao = 'saida' THEN ei.qtd ELSE 0 END) AS quantidade_total
+        FROM
+            lotes l
+            JOIN estoque_itens ei ON ei.lote_id = l.id
+            JOIN estoque e ON ei.estoque_id = e.id
+            JOIN tipos_movimentacoes tm ON e.tipo_movimentacao_id = tm.id
+        WHERE
+            ei.medicamento_id = ? AND (tm.operacao = 'entrada' OR tm.operacao = 'saida')
+        GROUP BY
+            l.id, l.numero_lote
+        ORDER BY
+            l.data_validade ASC;
+    `;
+
+    connection.query(query, [medicamentoId], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
 const updateMedicamento = (medicamentoId, medicamento, callback) => {
     const query = `
         UPDATE medicamentos
@@ -425,6 +454,7 @@ module.exports = {
     getFormasFarmaceuticas,
     getUnidades,
     getMedicamentoById,
+    getMedicamentoLotes,
     updateMedicamento,
     getLotes,
     insertLotes,
@@ -439,5 +469,5 @@ module.exports = {
     insertEstoque,
     insertItemEstoque,
     getLocalizacoes,
-    getTiposMovimentacoes
+    getTiposMovimentacoes,
 };

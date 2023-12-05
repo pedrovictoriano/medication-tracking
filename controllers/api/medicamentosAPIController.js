@@ -68,3 +68,19 @@ exports.obterMedicamento = (req, res) => {
         }
     });
 }
+
+exports.obterMedicamentoLotes = (req, res) => {
+    const medicamentoId = req.params.medicamentoId;
+
+    db.getMedicamentoLotes(medicamentoId, (err, data) => {
+        if (err) {
+            res.status(500).send("Erro ao consultar lotes do medicamento no banco de dados");
+            return;
+        }
+        if (data.length > 0) {
+            res.json(data);
+        } else {
+            res.status(204).send("Não há lotes disponiveis para o medicamento selecionado");
+        }
+    });
+}
