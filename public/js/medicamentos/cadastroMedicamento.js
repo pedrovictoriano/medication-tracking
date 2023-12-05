@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('#formCadastroMedicamento').on('submit', function (e) {
     e.preventDefault();
     $.ajax({
-      url: '/medicamentos',
+      url: 'api/medicamentos',
       type: 'POST',
       data: $(this).serialize(),
       success: function (response) {
