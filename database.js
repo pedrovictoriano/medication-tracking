@@ -356,7 +356,33 @@ const insertEstoque = (estoque, callback) => {
         if (err) {
             return callback(err);
         }
-        callback(null, results);
+        callback(null, results.insertId); // retorna id do registro
+    });
+};
+
+// Função para inserir um item do estoque
+const insertItemEstoque = (item, callback) => {
+    const query = `
+        INSERT INTO estoque_itens 
+            (estoque_id, lote_id, medicamento_id, qtd, localizacao_id, observacoes)
+        VALUES 
+            (?, ?, ?, ?, ?, ?);
+    `;
+
+    const params = [
+        item.estoque_id,
+        item.lote_id,
+        item.medicamento_id,
+        item.qtd,
+        item.localizacao_id,
+        item.observacoes
+    ];
+
+    connection.query(query, params, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results); // Retorna o ID do item inserido
     });
 };
 
@@ -411,6 +437,7 @@ module.exports = {
     marcarComoVisualizada,
     getEstoque,
     insertEstoque,
+    insertItemEstoque,
     getLocalizacoes,
     getTiposMovimentacoes
 };

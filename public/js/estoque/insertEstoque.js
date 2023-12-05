@@ -87,30 +87,8 @@ $('#next-btn').on('click', function () {
     if ($("#formEstoquePart").valid()) {
         // Se o formulário for válido, avança para a próxima etapa
         stepper.next();
-        insertEstoque();
     }
 });
-
-function insertEstoque() {
-    const dadosFormEstoque = $("#formEstoquePart").serialize();
-
-    $.ajax({
-        url: '/api/estoque',
-        type: 'POST',
-        data: dadosFormEstoque,
-        success: function (response) {
-            $('#modalInsertEstoque').modal('hide');
-            toastr.success('Estoque cadastrado com sucesso!');
-            $('#formEstoquePart').trigger('reset');
-            $('#formEstoqueItensPart').trigger('reset');
-            $('#listEstoque').DataTable().ajax.reload();
-        },
-        error: function (xhr, status, error) {
-            // Tratamento em caso de erro
-            toastr.error('Erro ao cadastrar Estoque.');
-        }
-    });
-}
 
 // Evento de clique para adicionar item
 $('#btnAdicionarItem').on('click', function () {
@@ -193,3 +171,81 @@ $(document).on('click', '.btn-remover-item', function () {
         }
     });
 });
+
+$('#submit-btn').on('click', function () {
+    // Verifica se há itens na lista
+    if (itensEstoque.length > 0) {
+        // Se houver itens, prossegue com o cadastro
+        insertEstoque();
+    } else {
+        // Se não houver itens, exibe um alerta para o usuário
+        Swal.fire({
+            title: 'Lista Vazia',
+            text: "Você precisa adicionar ao menos um item antes de prosseguir!",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok'
+        });
+    }
+});
+
+function insertEstoque() {
+    const dadosFormEstoque = $("#formEstoquePart").serialize();
+
+    $.ajax({
+        url: '/api/estoque',
+        type: 'POST',
+        data: dadosFormEstoque,
+        success: function (response) {
+            const estoqueId = response; // Captura o ID do estoque inserido
+            inserirItensEstoque(estoqueId); // Chama a função para inserir os itens
+        },
+        error: function (xhr, status, error) {
+            // Tratamento em caso de erro
+            toastr.error('Erro ao cadastrar Estoque.');
+        }
+    });
+}
+
+function inserirItensEstoque(estoqueId) {
+    let totalItens = itensEstoque.length;
+    let itensInseridos = 0;
+
+    // Verifica se há itens para inserir
+    if (totalItens === 0) {
+        // Não há itens para inserir, pode finalizar o processo
+        finalizarInsercaoEstoque();
+        return;
+    }
+
+    itensEstoque.forEach(function (item) {
+        item.estoque_id = estoqueId.estoque_id; // Adiciona o ID do estoque ao item
+        console.log(item);
+
+        $.ajax({
+            url: '/api/estoque/itens', // Substitua pela sua URL correta
+            type: 'POST',
+            data: item,
+            success: function (response) {
+                itensInseridos++;
+                if (itensInseridos === totalItens) {
+                    // Todos os itens foram inseridos
+                    finalizarInsercaoEstoque();
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error('Erro ao inserir item do estoque.');
+                // Você pode adicionar mais tratamento de erro aqui, se necessário
+            }
+        });
+    });
+}
+
+function finalizarInsercaoEstoque() {
+    $('#modalInsertEstoque').modal('hide');
+    toastr.success('Estoque e itens cadastrados com sucesso!');
+    $('#formEstoquePart').trigger('reset');
+    $('#formEstoqueItensPart').trigger('reset');
+    $('#listEstoque').DataTable().ajax.reload();
+    itensEstoque = []; // Limpa o array de itens
+}
